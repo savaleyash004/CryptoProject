@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Search, Bell, RefreshCw } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -14,15 +13,15 @@ export default function Header({ onRefresh, isLoading = false }: HeaderProps) {
   const isMobile = useIsMobile();
 
   return (
-    <header className="bg-background py-3 px-4 md:px-8 border-b border-border flex items-center justify-between animate-fade-in">
-      <div className="flex-1">
-        <h1 className="text-xl font-medium">Dashboard</h1>
-        <p className="text-sm text-muted-foreground">
+    <header className="bg-background py-3 px-2 xs:px-4 md:px-8 border-b border-border flex flex-col gap-2 xs:flex-row xs:items-center xs:justify-between animate-fade-in">
+      <div className="flex-1 min-w-0">
+        <h1 className="text-lg xs:text-xl md:text-2xl font-medium truncate">Dashboard</h1>
+        <p className="text-xs xs:text-sm md:text-base text-muted-foreground truncate">
           Your crypto insights for {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
         </p>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 xs:gap-3">
         <button
           onClick={onRefresh}
           className={cn(

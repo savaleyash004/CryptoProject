@@ -189,18 +189,18 @@ export default function Settings() {
                         <div>
                           <h3 className="font-medium mb-2">Theme</h3>
                           <div className="flex items-center gap-4">
-                            <button
+                              <button
                               onClick={toggleTheme}
-                              className={cn(
+                                className={cn(
                                 "flex items-center px-4 py-2 rounded-lg border border-border transition-colors",
                                 theme === "dark"
                                   ? "bg-primary text-primary-foreground"
                                   : "bg-background text-foreground hover:bg-muted"
-                              )}
-                            >
+                                )}
+                              >
                               {theme === "dark" ? <Moon size={18} className="mr-2" /> : <Sun size={18} className="mr-2" />}
                               {theme === "dark" ? "Dark Mode" : "Light Mode"}
-                            </button>
+                              </button>
                           </div>
                         </div>
                         <div>

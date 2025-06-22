@@ -1,8 +1,18 @@
 import axios from 'axios';
 
-const COINGECKO_BASE = 'https://api.coingecko.com/api/v3';
-const DEFILLAMA_TVL = 'https://api.llama.fi/v2/tvl/total';
+const CORS_PROXY = 'https://corsproxy.io/?';
+const COINGECKO_BASE = CORS_PROXY + 'https://api.coingecko.com/api/v3';
+const COINGECKO_DEFI_TVL = CORS_PROXY + 'https://api.coingecko.com/api/v3/global/decentralized_finance_defi';
+const COINGECKO_DEFI_TVL_HISTORY = CORS_PROXY + 'https://api.coingecko.com/api/v3/global/decentralized_finance_defi/history';
 const FEAR_GREED_INDEX = 'https://api.alternative.me/fng/';
+
+function formatDate(date: Date) {
+  // Returns DD-MM-YYYY
+  const d = date.getDate().toString().padStart(2, '0');
+  const m = (date.getMonth() + 1).toString().padStart(2, '0');
+  const y = date.getFullYear();
+  return `${d}-${m}-${y}`;
+}
 
 export async function fetchMarketStats() {
   try {
@@ -32,14 +42,35 @@ export async function fetchMarketStats() {
 
 export async function fetchTVL() {
   try {
-    const { data } = await axios.get(DEFILLAMA_TVL);
+    // Get today's TVL
+    const { data: todayData } = await axios.get(COINGECKO_DEFI_TVL);
+    const today = Number(todayData.data.defi_market_cap);
+
+    // Get yesterday's and last week's TVL
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const lastWeek = new Date();
+    lastWeek.setDate(lastWeek.getDate() - 7);
+
+    const [yesterdayRes, lastWeekRes] = await Promise.all([
+      axios.get(`${COINGECKO_DEFI_TVL_HISTORY}?date=${formatDate(yesterday)}`),
+      axios.get(`${COINGECKO_DEFI_TVL_HISTORY}?date=${formatDate(lastWeek)}`)
+    ]);
+
+    const yesterdayTVL = Number(yesterdayRes.data.data.defi_market_cap);
+    const lastWeekTVL = Number(lastWeekRes.data.data.defi_market_cap);
+
+    // Calculate % change
+    const dailyChange = yesterdayTVL > 0 ? ((today - yesterdayTVL) / yesterdayTVL) * 100 : 0;
+    const weeklyChange = lastWeekTVL > 0 ? ((today - lastWeekTVL) / lastWeekTVL) * 100 : 0;
+
     return {
-      current: data.totalLiquidityUSD,
-      dailyChange: data.change_1d,
-      weeklyChange: data.change_7d
+      current: today,
+      dailyChange,
+      weeklyChange
     };
   } catch (e) {
-    console.error('DefiLlama TVL API error:', e);
+    console.error('CoinGecko DeFi TVL API error:', e);
     return { current: 0, dailyChange: 0, weeklyChange: 0 };
   }
 }

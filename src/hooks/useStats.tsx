@@ -30,7 +30,11 @@ export function useStats() {
           fetchFearGreedIndex()
         ]);
         if (isMounted) {
-          setStats(apiStats);
+          // Merge TVL into stats for the top card
+          setStats({
+            ...apiStats,
+            totalValueLocked: tvl?.current ?? 0
+          });
           setTrending(trendingTokens);
           setRecentProjects(recentProjectsData);
           setTvlData(tvl);
@@ -56,7 +60,10 @@ export function useStats() {
         fetchTVL(),
         fetchFearGreedIndex()
       ]);
-      setStats(apiStats);
+      setStats({
+        ...apiStats,
+        totalValueLocked: tvl?.current ?? 0
+      });
       setTrending(trendingTokens);
       setRecentProjects(recentProjectsData);
       setTvlData(tvl);

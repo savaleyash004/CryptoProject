@@ -21,25 +21,25 @@ const App = () => (
   <ThemeProvider>
     <AuthProvider>
       <NotificationProvider>
-        <QueryClientProvider client={queryClient}>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/markets" element={<Markets />} />
-                <Route path="/trending" element={<Trending />} />
-                <Route path="/portfolio" element={<Portfolio />} />
-                <Route path="/settings" element={<Settings />} />
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/markets" element={<Markets />} />
+          <Route path="/trending" element={<Trending />} />
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/settings" element={<Settings />} />
                 <Route path="/social" element={<Social />} />
                 <Route path="/defi" element={<DeFi />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </TooltipProvider>
-        </QueryClientProvider>
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
       </NotificationProvider>
     </AuthProvider>
   </ThemeProvider>

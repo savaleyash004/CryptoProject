@@ -8,6 +8,8 @@ import TrendingSection from "@/components/TrendingSection";
 import ProjectsTable from "@/components/ProjectsTable";
 import FearGreedIndex from "@/components/FearGreedIndex";
 import { Bitcoin, DollarSign, BarChart, LineChart } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 function SkeletonCard() {
   return (
@@ -50,6 +52,7 @@ function SkeletonProjects() {
 }
 
 export default function Index() {
+  const isMobile = useIsMobile();
   const {
     loading,
     error,
@@ -60,12 +63,6 @@ export default function Index() {
     recentProjects,
     refreshData
   } = useStats();
-
-  // Debug log for TVL
-  if (tvlData) {
-    // eslint-disable-next-line no-console
-    console.log('TVL Data:', tvlData);
-  }
 
   // Format large numbers for display
   const formatCurrency = (value: number) => {
@@ -96,14 +93,14 @@ export default function Index() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex w-full">
+    <div className={cn("min-h-screen bg-background flex w-full", isMobile ? "pt-16" : "")}>
       <Sidebar />
       <div className="flex-1 flex flex-col h-screen overflow-hidden lg:ml-0">
         <Header onRefresh={refreshData} isLoading={loading} />
-        <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
-          <div className="max-w-screen-2xl mx-auto space-y-6">
+        <main className="flex-1 overflow-y-auto p-1 xs:p-2 sm:p-4 md:p-6 lg:p-8">
+          <div className="max-w-screen-2xl mx-auto space-y-3 xs:space-y-4 sm:space-y-6">
             {/* Stats Cards Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 xs:gap-3 sm:gap-4 md:gap-6 min-w-0">
               {loading || !stats ? (
                 <>
                   <SkeletonCard />
@@ -149,7 +146,7 @@ export default function Index() {
               )}
             </div>
             {/* Charts Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-3 xs:gap-4 sm:gap-6 lg:grid-cols-2 min-w-0">
               {loading || !tvlData ? <SkeletonChart /> : (
                 tvlData.current > 0 ? (
                   <GaugeChart
@@ -173,9 +170,13 @@ export default function Index() {
               )}
             </div>
             {/* Trending Section */}
-            {loading || !trending.length ? <SkeletonTrending /> : <TrendingSection tokens={trending} />}
+            <section className="min-w-0 overflow-x-auto no-scrollbar pb-2 text-xs xs:text-sm md:text-base">
+              {loading || !trending.length ? <SkeletonTrending /> : <TrendingSection tokens={trending} />}
+            </section>
             {/* Projects Table */}
-            {loading || !recentProjects.length ? <SkeletonProjects /> : <ProjectsTable projects={recentProjects} />}
+            <section className="min-w-0 overflow-x-auto no-scrollbar pb-2 text-xs xs:text-sm md:text-base">
+              {loading || !recentProjects.length ? <SkeletonProjects /> : <ProjectsTable projects={recentProjects} />}
+            </section>
           </div>
         </main>
       </div>
