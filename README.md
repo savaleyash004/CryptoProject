@@ -1,69 +1,69 @@
-# Welcome to your Lovable project
+# Crypto Dashboard
 
-## Project info
+A premium, real-time crypto analytics dashboard built with React, TypeScript, Vite, Tailwind CSS, and shadcn/ui. This dashboard provides live market stats, trending tokens, TVL, and the Fear & Greed Index using real-world APIs (CoinGecko, DefiLlama, Alternative.me).
 
-**URL**: https://lovable.dev/projects/4d9cc67a-9f34-4173-b9e1-cbaae86219ac
+## Features
 
-## How can I edit this code?
+- **Live Global Market Stats** (market cap, BTC price, trading volume)
+- **Trending Tokens** (real-time from CoinGecko)
+- **Recently Added Projects** (real-time from CoinGecko)
+- **Total Value Locked (TVL)** (real-time from DefiLlama)
+- **Fear & Greed Index** (real-time from Alternative.me)
+- **Modern, Responsive UI** (Tailwind CSS, shadcn/ui, animated cards, gradients)
+- **Theme Switching, Authentication, Notifications** (scaffolded)
+- **Error Handling & Loading Skeletons**
 
-There are several ways of editing your application.
+## Getting Started
 
-**Use Lovable**
+### Prerequisites
+- Node.js (v18+ recommended)
+- npm or bun
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/4d9cc67a-9f34-4173-b9e1-cbaae86219ac) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+### Installation
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
+# Clone the repository
 git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
 cd <YOUR_PROJECT_NAME>
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+# Install dependencies
+npm install
+# or
+bun install
 ```
 
-**Edit a file directly in GitHub**
+### Running the Development Server
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```sh
+npm run dev
+# or
+bun run dev
+```
 
-**Use GitHub Codespaces**
+The app will be available at [http://localhost:5173](http://localhost:5173) by default.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project Structure
 
-## What technologies are used for this project?
+- `src/components/` – UI components (StatsCard, GaugeChart, FearGreedIndex, etc.)
+- `src/pages/` – Main dashboard and subpages
+- `src/lib/` – API utilities and helpers
+- `src/context/` – Context providers (theme, auth, notifications)
+- `src/hooks/` – Custom React hooks
 
-This project is built with .
+## Deployment
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+You can deploy this project to any static hosting provider (Netlify, Vercel, GitHub Pages, etc.).
 
-## How can I deploy this project?
+### Example (Netlify)
+1. Push your code to GitHub.
+2. Connect your repository to Netlify.
+3. Set the build command to `npm run build` and the publish directory to `dist`.
+4. Deploy!
 
-Simply open [Lovable](https://lovable.dev/projects/4d9cc67a-9f34-4173-b9e1-cbaae86219ac) and click on Share -> Publish.
+## Customization
+- Update theme, branding, or add new API integrations as needed.
+- Extend the dashboard with new analytics, charts, or DeFi/social features.
 
-## I want to use a custom domain - is that possible?
+## License
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+MIT
